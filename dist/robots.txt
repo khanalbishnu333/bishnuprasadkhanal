@@ -1,0 +1,24 @@
+# robots.txt — https://bishnukhanal.com
+# Bishnu Prasad Khanal — Laravel & Full-Stack Developer, Nepal
+
+User-agent: *
+Allow: /
+
+# Allow major search & social crawlers full access
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Sitemap
+Sitemap: https://bishnukhanal.com/sitemap.xml

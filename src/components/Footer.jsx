@@ -1,6 +1,6 @@
 "use client"
 
-import { Heart, Coffee } from "lucide-react"
+import { Heart, Github, Linkedin, Facebook, MessageCircle } from "lucide-react"
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -22,39 +22,51 @@ const Footer = () => {
     "Maintenance & Support",
   ]
 
+  const socials = [
+    { icon: Github, url: "https://github.com/KhanalBishnu", label: "GitHub" },
+    { icon: Linkedin, url: "https://linkedin.com/in/bishnu-prasad-khanal", label: "LinkedIn" },
+    { icon: Facebook, url: "https://facebook.com/bishnuprd.khanal", label: "Facebook" },
+    { icon: MessageCircle, url: "https://wa.me/9779868642250", label: "WhatsApp" },
+  ]
+
   return (
-    <footer className="bg-gradient-to-br from-gray-900 to-black relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* About Section */}
+    <footer className="bg-ink text-cream relative">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+          {/* About */}
           <div className="lg:col-span-2">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent mb-4">
-              Bishnu Prasad Khanal
+            <h3 className="font-display text-2xl font-semibold mb-4">
+              Bishnu Khanal<span className="text-gold">.</span>
             </h3>
-            <p className="text-gray-300 leading-relaxed mb-6 max-w-md">
-              Expert <strong className="text-green-400">Laravel Developer</strong> and{" "}
-              <strong className="text-blue-400">Software Developer</strong> from Nepal. Passionate about creating
-              innovative web solutions and helping businesses grow through technology.
+            <p className="text-cream/70 leading-relaxed mb-6 max-w-md">
+              Expert Laravel &amp; software developer from Nepal — passionate about building innovative web solutions
+              and helping businesses grow through technology.
             </p>
-            <div className="flex items-center space-x-2 text-gray-400">
-              <span>Made with</span>
-              <Heart className="w-4 h-4 text-red-400 animate-pulse" />
-              <span>and</span>
-              <Coffee className="w-4 h-4 text-yellow-400" />
-              <span>in Nepal</span>
-              <span className="text-yellow-400">🇳🇵</span>
+            <div className="flex items-center gap-3">
+              {socials.map((s, i) => (
+                <a
+                  key={i}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="w-10 h-10 rounded-full border border-cream/20 flex items-center justify-center text-cream/70 hover:text-ink hover:bg-gold hover:border-gold transition-colors"
+                >
+                  <s.icon className="w-4 h-4" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick links */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
-            <ul className="space-y-2">
+            <h4 className="eyebrow text-gold mb-4">Explore</h4>
+            <ul className="space-y-2.5">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <button
                     onClick={() => document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" })}
-                    className="text-gray-400 hover:text-green-400 transition-colors"
+                    className="text-cream/70 hover:text-gold transition-colors"
                   >
                     {link.name}
                   </button>
@@ -65,10 +77,10 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Services</h4>
-            <ul className="space-y-2">
+            <h4 className="eyebrow text-gold mb-4">Services</h4>
+            <ul className="space-y-2.5">
               {services.map((service, index) => (
-                <li key={index} className="text-gray-400 text-sm">
+                <li key={index} className="text-cream/70 text-sm">
                   {service}
                 </li>
               ))}
@@ -76,28 +88,21 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © {currentYear} Bishnu Prasad Khanal. All rights reserved.
-            </div>
-
-            <div className="flex items-center space-x-4 text-sm text-gray-400">
-              <span>Laravel Developer Nepal</span>
-              <span>•</span>
-              <span>Software Developer</span>
-              <span>•</span>
-              <span>Full-Stack Developer</span>
+        {/* Bottom */}
+        <div className="border-t border-cream/15 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-cream/60 text-sm">© {currentYear} Bishnu Prasad Khanal. All rights reserved.</div>
+            <div className="flex items-center gap-2 text-cream/60 text-sm">
+              <span>Made with</span>
+              <Heart className="w-4 h-4 text-clay-light" />
+              <span>in Nepal</span>
             </div>
           </div>
 
-          <div className="text-center mt-4">
-            <p className="text-xs text-gray-500">
-              Keywords: Bishnu, Bishnu Prasad, Bishnu Prasad Khanal, Laravel Developer Nepal, Software Developer Nepal,
-              Nepal Developer, PHP Developer, React Developer, Full-Stack Developer, Web Developer Nepal
-            </p>
-          </div>
+          <p className="text-center text-xs text-cream/35 mt-6 max-w-4xl mx-auto leading-relaxed">
+            Bishnu, Bishnu Prasad, Bishnu Prasad Khanal, Laravel Developer Nepal, Software Developer Nepal, Nepal
+            Developer, PHP Developer, React Developer, Full-Stack Developer, Web Developer Nepal
+          </p>
         </div>
       </div>
     </footer>

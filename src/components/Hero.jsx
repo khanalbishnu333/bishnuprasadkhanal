@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ArrowDown, Mail, Github, Linkedin, Download, Code, Zap, Star, MapPin } from "lucide-react"
+import { ArrowDown, ArrowUpRight, Github, Linkedin, Download, MapPin } from "lucide-react"
+import useTilt from "../hooks/useTilt"
 
 const Hero = () => {
   const [currentText, setCurrentText] = useState("")
@@ -9,19 +10,19 @@ const Hero = () => {
   const [charIndex, setCharIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
 
+  const tiltRef = useTilt({ max: 10, scale: 1.03, layered: true })
+
   const texts = [
-    "Laravel Developer 🚀",
-    "Software Developer 💻",
-    "Full-Stack Developer 🌟",
-    "PHP Expert 🔥",
-    "React Developer ⚛️",
-    "Nepal Developer 🇳🇵",
-    "Problem Solver 🧩",
-    "Code Craftsman 🛠️",
+    "Laravel Developer",
+    "Software Developer",
+    "Full-Stack Developer",
+    "PHP Expert",
+    "React Developer",
+    "Problem Solver",
   ]
 
   useEffect(() => {
-    const typeSpeed = isDeleting ? 50 : 150
+    const typeSpeed = isDeleting ? 45 : 110
     const text = texts[currentIndex]
 
     const timer = setTimeout(() => {
@@ -32,7 +33,7 @@ const Hero = () => {
         setCurrentText(text.substring(0, charIndex - 1))
         setCharIndex(charIndex - 1)
       } else if (!isDeleting && charIndex === text.length) {
-        setTimeout(() => setIsDeleting(true), 2000)
+        setTimeout(() => setIsDeleting(true), 1800)
       } else if (isDeleting && charIndex === 0) {
         setIsDeleting(false)
         setCurrentIndex((currentIndex + 1) % texts.length)
@@ -42,184 +43,192 @@ const Hero = () => {
     return () => clearTimeout(timer)
   }, [charIndex, isDeleting, currentIndex, texts])
 
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-  }
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
 
-  const scrollToProjects = () => {
-    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-  }
+  const stats = [
+    { icon: MapPin, label: "Lalitpur, Nepal" },
+    { label: "3+ Years Experience" },
+    { label: "15+ Projects" },
+  ]
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-      {/* Animated background */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 animate-pulse"></div>
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`,
-            }}
-          />
-        ))}
-      </div>
+    <section id="home" className="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-28">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 relative z-10">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-14 lg:gap-10 items-center">
+          {/* Left — content (staggered entrance) */}
+          <div className="text-center lg:text-left">
+            <div
+              className="inline-flex items-center gap-2 rounded-full border border-ink/12 bg-cream-50 px-4 py-1.5 mb-7"
+              data-reveal
+              style={{ "--reveal-delay": "0ms" }}
+            >
+              <span className="w-2 h-2 rounded-full bg-sage animate-pulse-slow" />
+              <span className="eyebrow text-ink-soft">Available for freelance work</span>
+            </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left side - Content */}
-          <div className="text-center lg:text-left space-y-8">
-            {/* Greeting */}
-            <div className="space-y-2">
-              <div className="inline-flex items-center bg-gradient-to-r from-green-400/20 to-blue-400/20 backdrop-blur-sm border border-green-400/30 rounded-full px-4 py-2 text-sm">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
-                <span className="text-green-400">Available for freelance work</span>
-              </div>
-              <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-blue-200 to-green-400 bg-clip-text text-transparent leading-tight">
-                Hi, I'm <span className="text-green-400">Bishnu</span>
+            <div data-reveal style={{ "--reveal-delay": "80ms" }}>
+              <h1 className="font-display font-semibold text-ink leading-[0.98] tracking-tight text-[2.9rem] sm:text-6xl lg:text-[4.6rem]">
+                Hi, I&apos;m <span className="text-gold-deep">Bishnu</span>
+                <span className="text-gold">.</span>
               </h1>
-            </div>
-
-            {/* Dynamic typing text */}
-            <div className="h-16 flex items-center justify-center lg:justify-start">
-              <h2 className="text-2xl md:text-4xl font-semibold text-blue-300">
+              <div className="mt-2 font-display font-medium text-clay leading-[1.1] tracking-tight text-[1.9rem] sm:text-4xl lg:text-[3rem] min-h-[1.25em]">
+                <span className="italic font-normal text-ink-soft">a </span>
                 {currentText}
-                <span className="animate-pulse text-green-400">|</span>
-              </h2>
-            </div>
-
-            {/* Description */}
-            <div className="space-y-4">
-              <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
-                Expert <strong className="text-green-400">Laravel Developer</strong> and{" "}
-                <strong className="text-blue-400">Software Developer</strong> from{" "}
-                <strong className="text-yellow-400">Nepal 🇳🇵</strong> with 2.5+ years of experience building scalable
-                web applications, e-commerce platforms, and modern software solutions.
-              </p>
-
-              <div className="flex items-center justify-center lg:justify-start space-x-4 text-sm text-gray-400">
-                <div className="flex items-center space-x-1">
-                  <MapPin className="w-4 h-4 text-green-400" />
-                  <span>Lalitpur, Nepal</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Star className="w-4 h-4 text-yellow-400" />
-                  <span>2.5+ Years Experience</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Code className="w-4 h-4 text-blue-400" />
-                  <span>50+ Projects</span>
-                </div>
+                <span className="blink-caret bg-clay align-baseline">&nbsp;</span>
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <p
+              className="mt-7 text-lg md:text-xl text-ink-soft leading-relaxed max-w-xl mx-auto lg:mx-0"
+              data-reveal
+              style={{ "--reveal-delay": "160ms" }}
+            >
+              Expert <strong className="font-semibold text-ink">Laravel &amp; full-stack developer</strong> from Nepal,
+              crafting scalable web applications, e-commerce platforms and clean, modern software.
+            </p>
+
+            {/* meta row */}
+            <div
+              className="mt-7 flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-2 text-sm text-ink-soft"
+              data-reveal
+              style={{ "--reveal-delay": "240ms" }}
+            >
+              {stats.map((s, i) => (
+                <span key={i} className="inline-flex items-center gap-2">
+                  {i > 0 && <span className="w-1 h-1 rounded-full bg-gold" />}
+                  {s.icon && <s.icon className="w-4 h-4 text-sage" />}
+                  {s.label}
+                </span>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div
+              className="mt-9 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              data-reveal
+              style={{ "--reveal-delay": "320ms" }}
+            >
               <button
-                onClick={scrollToContact}
-                className="group bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
+                onClick={() => scrollTo("contact")}
+                className="btn-sage group rounded-full px-7 py-3.5 inline-flex items-center justify-center gap-2 active:scale-95 transition-transform"
               >
-                <Mail className="mr-2 w-5 h-5 group-hover:animate-bounce" />
-                Hire Me Now
+                Hire me now
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
               <button
-                onClick={scrollToProjects}
-                className="group border-2 border-green-400 text-green-400 hover:bg-green-400 hover:text-gray-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+                onClick={() => scrollTo("projects")}
+                className="btn-outline-ink rounded-full px-7 py-3.5 active:scale-95 transition-transform"
               >
-                <Zap className="mr-2 w-5 h-5 group-hover:animate-pulse" />
-                View Projects
+                View my work
               </button>
             </div>
 
-            {/* Social Links */}
-            <div className="flex items-center justify-center lg:justify-start space-x-6">
+            {/* socials */}
+            <div
+              className="mt-9 flex items-center justify-center lg:justify-start gap-5"
+              data-reveal
+              style={{ "--reveal-delay": "400ms" }}
+            >
               <a
                 href="https://github.com/KhanalBishnu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors transform hover:scale-110"
-                aria-label="GitHub Profile"
+                aria-label="GitHub profile"
+                className="text-ink-soft hover:text-ink transition-colors"
               >
-                <Github className="w-6 h-6" />
+                <Github className="w-5 h-5" />
               </a>
               <a
                 href="https://linkedin.com/in/bishnu-prasad-khanal"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-110"
-                aria-label="LinkedIn Profile"
+                aria-label="LinkedIn profile"
+                className="text-ink-soft hover:text-sage transition-colors"
               >
-                <Linkedin className="w-6 h-6" />
+                <Linkedin className="w-5 h-5" />
               </a>
               <a
                 href="/resume-bishnu-prasad-khanal.pdf"
                 download
-                className="text-gray-400 hover:text-green-400 transition-colors transform hover:scale-110"
-                aria-label="Download Resume"
+                aria-label="Download resume"
+                className="inline-flex items-center gap-2 text-sm text-ink-soft hover:text-gold-deep transition-colors link-underline"
               >
-                <Download className="w-6 h-6" />
+                <Download className="w-4 h-4" />
+                Resume
               </a>
             </div>
           </div>
 
-          {/* Right side - Image/Visual */}
-          <div className="relative">
-            <div className="relative w-80 h-80 mx-auto">
-              {/* Animated rings */}
-              <div className="absolute inset-0 rounded-full border-2 border-green-400/30 animate-spin"></div>
+          {/* Right — bold editorial portrait scene. A big terracotta shape
+              slowly morphs and turns behind the photo, a gold accent drifts,
+              a sage ring sits, and a dotted arc crawls — clearly alive at rest.
+              The portrait keeps a gentle idle float + hover tilt on top.
+              Original composition, not a theme copy. */}
+          <div className="relative flex justify-center lg:justify-end scene-3d" data-reveal="right">
+            <div className="relative w-[17rem] sm:w-[22rem] lg:w-[25rem]">
+              {/* big morphing terracotta shape — the bold color backdrop */}
               <div
-                className="absolute inset-4 rounded-full border-2 border-blue-400/30 animate-spin"
-                style={{ animationDirection: "reverse" }}
-              ></div>
-              <div className="absolute inset-8 rounded-full border-2 border-purple-400/30 animate-spin"></div>
-
-              {/* Profile image */}
-              <div className="absolute inset-12 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
-                <img
-                  src="./about.jpg"
-                  alt="Bishnu Prasad Khanal - Laravel Developer Nepal"
-                  className="w-full h-full object-cover"
+                className="hero-blob absolute -top-8 -right-4 sm:-right-8 w-[17rem] h-[17rem] sm:w-[22rem] sm:h-[22rem] lg:w-[26rem] lg:h-[26rem] bg-clay/90 shadow-soft"
+                aria-hidden="true"
+              />
+              {/* drifting gold circle accent */}
+              <div
+                className="hero-drift absolute -bottom-7 -left-7 w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gold/85"
+                aria-hidden="true"
+              />
+              {/* thin sage ring accent */}
+              <div
+                className="absolute -top-9 -left-5 w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-sage/60"
+                aria-hidden="true"
+              />
+              {/* crawling dotted arc — editorial line detail */}
+              <svg
+                className="absolute -top-5 right-4 w-36 h-14 text-sage/70"
+                viewBox="0 0 200 80"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  className="hero-dash"
+                  d="M2,70 C60,10 140,10 198,70"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeDasharray="1 9"
+                  strokeLinecap="round"
                 />
-              </div>
+              </svg>
 
-              {/* Floating tech icons */}
-              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-red-500 to-orange-500 p-3 rounded-full animate-bounce">
-                <span className="text-white font-bold text-sm">Laravel</span>
-              </div>
-              <div
-                className="absolute -bottom-4 -left-4 bg-gradient-to-r from-blue-500 to-cyan-500 p-3 rounded-full animate-bounce"
-                style={{ animationDelay: "0.5s" }}
-              >
-                <span className="text-white font-bold text-sm">React</span>
-              </div>
-              <div
-                className="absolute top-1/2 -left-8 bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full animate-bounce"
-                style={{ animationDelay: "1s" }}
-              >
-                <span className="text-white font-bold text-sm">PHP</span>
-              </div>
-              <div
-                className="absolute top-1/2 -right-8 bg-gradient-to-r from-green-500 to-teal-500 p-3 rounded-full animate-bounce"
-                style={{ animationDelay: "1.5s" }}
-              >
-                <span className="text-white font-bold text-sm">MySQL</span>
+              {/* portrait — gentle idle float, hover tilt composes on top */}
+              <div className="hero-idle relative w-full">
+                <div ref={tiltRef} className="hero-tilt relative w-full">
+                  <div
+                    className="d-portrait relative overflow-hidden shadow-card bg-cream-50 ring-1 ring-ink/5 sheen"
+                    style={{ borderRadius: "999px 999px 2.5rem 2.5rem" }}
+                  >
+                    <img
+                      src="./hero.jpg"
+                      alt="Bishnu Prasad Khanal — Laravel &amp; Full-Stack Developer from Nepal, standing in a tailored suit"
+                      className="w-full aspect-[3/4] object-cover object-top"
+                      width="768"
+                      height="1024"
+                    />
+                    <span className="hero-glare" aria-hidden="true" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        {/* scroll cue */}
+        <div className="mt-16 flex justify-center lg:justify-start">
           <button
-            onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
-            className="p-2 rounded-full border border-white/30 hover:border-green-400 transition-colors"
+            onClick={() => scrollTo("about")}
+            className="inline-flex items-center gap-2 text-ink-soft hover:text-ink transition-colors group"
             aria-label="Scroll to about section"
           >
-            <ArrowDown className="w-6 h-6 text-white" />
+            <span className="eyebrow">Scroll</span>
+            <ArrowDown className="w-4 h-4 animate-bounce" />
           </button>
         </div>
       </div>

@@ -6,11 +6,9 @@ import Hero from "./Hero"
 import About from "./About"
 import Experience from "./Experience"
 import Skills from "./Skills"
-import TechStack from "./TechStack"
 import CodeTerminal from "./CodeTerminal"
 import Projects from "./Projects"
 import Services from "./Services"
-import Blog from "./Blog"
 import Contact from "./Contact"
 import Footer from "./Footer"
 import ScrollToTop from "./ScrollToTop"
@@ -54,11 +52,9 @@ const MainPortfolio = ({ mousePosition = { x: 0, y: 0 } }) => {
         <About />
         <Experience />
         <Skills />
-        <TechStack />
         <CodeTerminal />
         <Services />
         <Projects />
-        <Blog />
         <Contact />
       </main>
 

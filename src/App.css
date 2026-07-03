@@ -1,46 +1,50 @@
-/* Additional app-specific styles */
-.hero-gradient {
-  background: linear-gradient(
-    135deg,
-    rgba(16, 185, 129, 0.1) 0%,
-    rgba(59, 130, 246, 0.1) 50%,
-    rgba(139, 92, 246, 0.1) 100%
-  );
+/* App-specific helpers — warm editorial */
+
+.section-alt {
+  background-color: #efe9de;
 }
 
-.section-gradient {
-  background: linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%);
-}
-
-/* Custom button styles */
-.btn-primary {
-  background: linear-gradient(135deg, #10b981, #3b82f6);
+/* Primary (sage) pill button */
+.btn-sage {
+  background: #5ca595;
+  color: #fbf9f5;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
-
-.btn-primary:hover {
-  background: linear-gradient(135deg, #059669, #2563eb);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+@media (hover: hover) and (pointer: fine) {
+  .btn-sage:hover {
+    background: #4a8578;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -12px rgba(74, 133, 120, 0.6);
+  }
 }
 
-/* Card hover effects */
-.card-hover {
+/* Outline (ink) pill button */
+.btn-outline-ink {
+  background: transparent;
+  border: 1.5px solid rgba(26, 26, 26, 0.55);
+  color: #1a1a1a;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
-
-.card-hover:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+@media (hover: hover) and (pointer: fine) {
+  .btn-outline-ink:hover {
+    background: #1a1a1a;
+    color: #f5f1ea;
+    transform: translateY(-2px);
+  }
 }
 
-/* Text selection */
-::selection {
-  background: rgba(16, 185, 129, 0.3);
-  color: white;
+/* Paper card */
+.card-paper {
+  background: #fbf9f5;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
-
-::-moz-selection {
-  background: rgba(16, 185, 129, 0.3);
-  color: white;
+@media (hover: hover) and (pointer: fine) {
+  .card-paper:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 28px 60px -34px rgba(120, 90, 40, 0.55);
+    border-color: rgba(195, 154, 78, 0.5);
+  }
 }

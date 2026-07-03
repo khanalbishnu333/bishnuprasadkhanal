@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react"
+import { Star, Quote, ArrowLeft, ArrowRight } from "lucide-react"
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -54,114 +54,96 @@ const Testimonials = () => {
     },
   ]
 
-  const nextTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length)
-  }
+  const nextTestimonial = () => setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+  const prevTestimonial = () => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
 
-  const prevTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length)
-  }
+  const t = testimonials[currentIndex]
 
-  const currentTestimonial = testimonials[currentIndex]
+  const stats = [
+    { number: "50+", label: "Projects Completed" },
+    { number: "10+", label: "Happy Clients" },
+    { number: "2.5+", label: "Years Experience" },
+    { number: "100%", label: "Client Satisfaction" },
+  ]
 
   return (
-    <section id="testimonials" className="py-20 bg-gradient-to-br from-gray-800 to-gray-900 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials" className="bg-cream py-24 lg:py-28 relative">
+      <div className="max-w-5xl mx-auto px-5 sm:px-6 lg:px-10">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-            Client Testimonials
+        <div className="max-w-3xl mb-14" data-reveal>
+          <p className="eyebrow text-gold-deep mb-4">Kind words</p>
+          <h2 className="font-display text-4xl md:text-5xl font-semibold text-ink leading-tight text-balance">
+            What clients say about working with me.
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            What clients say about working with me as their{" "}
-            <strong className="text-green-400">Laravel Developer</strong> and{" "}
-            <strong className="text-blue-400">Software Developer</strong> from Nepal.
-          </p>
         </div>
 
-        {/* Main Testimonial */}
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-gray-700/50 relative">
-            {/* Quote Icon */}
-            <div className="absolute top-6 left-6 text-green-400/20">
-              <Quote className="w-16 h-16" />
-            </div>
+        {/* Quote card */}
+        <div className="relative card-paper rounded-4xl p-8 md:p-14" data-reveal>
+          <Quote className="w-14 h-14 text-gold/25 mb-6" />
 
-            {/* Testimonial Content */}
-            <div className="relative z-10">
-              {/* Stars */}
-              <div className="flex justify-center mb-6">
-                {[...Array(currentTestimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
-                ))}
-              </div>
-
-              {/* Testimonial Text */}
-              <blockquote className="text-xl md:text-2xl text-gray-300 text-center leading-relaxed mb-8 italic">
-                "{currentTestimonial.text}"
-              </blockquote>
-
-              {/* Client Info */}
-              <div className="flex items-center justify-center space-x-4">
-                <img
-                  src={currentTestimonial.image || "/placeholder.svg"}
-                  alt={currentTestimonial.name}
-                  className="w-16 h-16 rounded-full border-2 border-green-400"
-                />
-                <div className="text-center">
-                  <h4 className="text-white font-bold text-lg">{currentTestimonial.name}</h4>
-                  <p className="text-green-400 font-medium">{currentTestimonial.position}</p>
-                  <p className="text-gray-400 text-sm">{currentTestimonial.company}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Navigation Buttons */}
-            <button
-              onClick={prevTestimonial}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-700/50 hover:bg-gray-600/50 text-white p-3 rounded-full transition-colors"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-
-            <button
-              onClick={nextTestimonial}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-700/50 hover:bg-gray-600/50 text-white p-3 rounded-full transition-colors"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          </div>
-
-          {/* Testimonial Indicators */}
-          <div className="flex justify-center space-x-2 mt-8">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-colors ${
-                  index === currentIndex ? "bg-green-400" : "bg-gray-600"
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
+          <div className="flex gap-1 mb-6">
+            {[...Array(t.rating)].map((_, i) => (
+              <Star key={i} className="w-5 h-5 text-gold fill-gold" />
             ))}
           </div>
+
+          <blockquote className="font-display text-xl md:text-[1.7rem] leading-relaxed text-ink text-balance mb-9">
+            &ldquo;{t.text}&rdquo;
+          </blockquote>
+
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-4">
+              <img
+                src={t.image || "/placeholder.svg"}
+                alt={t.name}
+                className="w-14 h-14 rounded-full object-cover border-2 border-gold/40"
+                loading="lazy"
+              />
+              <div>
+                <h4 className="font-semibold text-ink">{t.name}</h4>
+                <p className="text-sm text-gold-deep">{t.position}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={prevTestimonial}
+                className="p-3 rounded-full border border-ink/15 text-ink hover:bg-ink hover:text-cream transition-colors active:scale-95"
+                aria-label="Previous testimonial"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={nextTestimonial}
+                className="p-3 rounded-full border border-ink/15 text-ink hover:bg-ink hover:text-cream transition-colors active:scale-95"
+                aria-label="Next testimonial"
+              >
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Indicators */}
+        <div className="flex justify-center gap-2 mt-8">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 rounded-full transition-all ${
+                index === currentIndex ? "w-7 bg-gold" : "w-2 bg-ink/20 hover:bg-ink/40"
+              }`}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />
+          ))}
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
-          {[
-            { number: "50+", label: "Projects Completed" },
-            { number: "10+", label: "Happy Clients" },
-            { number: "2.5+", label: "Years Experience" },
-            { number: "100%", label: "Client Satisfaction" },
-          ].map((stat, index) => (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16" data-reveal>
+          {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent mb-2">
-                {stat.number}
-              </div>
-              <div className="text-gray-400">{stat.label}</div>
+              <div className="font-display text-3xl md:text-4xl font-semibold text-gold-deep mb-1">{stat.number}</div>
+              <div className="text-sm text-ink-soft">{stat.label}</div>
             </div>
           ))}
         </div>

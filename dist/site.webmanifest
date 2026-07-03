@@ -1,0 +1,45 @@
+{
+    "name": "Bishnu Prasad Khanal — Laravel & Full-Stack Developer Nepal",
+    "short_name": "Bishnu Khanal",
+    "description": "Expert Laravel & Full-Stack Developer from Nepal — PHP, React, MySQL, e-commerce, CRM and REST API development.",
+    "lang": "en",
+    "dir": "ltr",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#F5F1EA",
+    "theme_color": "#C39A4E",
+    "categories": ["portfolio", "technology", "business"],
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "/favicon.ico",
+            "sizes": "48x48 32x32 16x16",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/web-icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/web-icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

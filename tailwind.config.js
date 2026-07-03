@@ -2,13 +2,56 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "*.{js,ts,jsx,tsx,mdx}"],
   darkMode: "class",
+  future: {
+    // Only apply `hover:` / `group-hover:` utilities on devices that truly
+    // support hover (pointer: fine). Without this, tapping a card on a phone
+    // triggers a "sticky" :hover that keeps `hover:scale-105` applied, so the
+    // card stays enlarged and overlaps its neighbours — the mobile "mismatch".
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "Monaco", "Consolas", "monospace"],
+        // Warm editorial UI/body type
+        sans: ["'DM Sans'", "Inter", "system-ui", "-apple-system", "sans-serif"],
+        // Serif display for big magazine-style headings
+        display: ["'Fraunces'", "'DM Sans'", "Georgia", "serif"],
+        mono: ["'JetBrains Mono'", "Monaco", "Consolas", "monospace"],
       },
       colors: {
+        /* ---- Warm editorial palette ---- */
+        cream: {
+          DEFAULT: "#F5F1EA",
+          50: "#FBF9F5",
+          100: "#F7F3EC",
+          200: "#F5F1EA",
+          300: "#EFE9DE",
+          400: "#E7DECE",
+          500: "#DCD0BB",
+        },
+        paper: "#EFE9DE",
+        ink: {
+          DEFAULT: "#1A1A1A",
+          soft: "#57534E",
+          muted: "#8A817A",
+        },
+        gold: {
+          DEFAULT: "#C39A4E",
+          light: "#D9B978",
+          deep: "#A8823B",
+        },
+        sage: {
+          DEFAULT: "#5CA595",
+          light: "#8FC3B7",
+          deep: "#4A8578",
+        },
+        clay: {
+          DEFAULT: "#C15F3C",
+          light: "#D98A6E",
+          deep: "#A84E2F",
+        },
+
+        /* ---- Existing token-based colors (kept for compatibility) ---- */
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -17,30 +60,10 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          50: "#ecfdf5",
-          100: "#d1fae5",
-          200: "#a7f3d0",
-          300: "#6ee7b7",
-          400: "#34d399",
-          500: "#10b981",
-          600: "#059669",
-          700: "#047857",
-          800: "#065f46",
-          900: "#064e3b",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe",
-          300: "#93c5fd",
-          400: "#60a5fa",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -79,54 +102,45 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "4xl": "2rem",
+      },
+      boxShadow: {
+        soft: "0 18px 40px -24px rgba(26, 26, 26, 0.35)",
+        card: "0 24px 60px -30px rgba(120, 90, 40, 0.45)",
       },
       animation: {
-        float: "float 6s ease-in-out infinite",
-        glow: "glow 2s ease-in-out infinite",
+        float: "float 9s ease-in-out infinite",
+        "float-slow": "float-slow 14s ease-in-out infinite",
         "pulse-slow": "pulse-slow 3s ease-in-out infinite",
-        gradient: "gradient-shift 3s ease infinite",
-        matrix: "matrix-move 20s linear infinite",
-        "fade-in": "fade-in 0.6s ease-out",
-        "slide-up": "slide-up 0.4s ease-out",
-        typing: "typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite",
+        "fade-in": "fade-in 0.7s ease-out both",
+        "slide-up": "slide-up 0.5s ease-out both",
+        "spin-slow": "spin 22s linear infinite",
+        blink: "blink 1s step-end infinite",
       },
       keyframes: {
         float: {
-          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
-          "50%": { transform: "translateY(-20px) rotate(180deg)" },
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-18px)" },
         },
-        glow: {
-          "0%, 100%": { boxShadow: "0 0 20px rgba(16, 185, 129, 0.3)" },
-          "50%": { boxShadow: "0 0 40px rgba(16, 185, 129, 0.6)" },
+        "float-slow": {
+          "0%, 100%": { transform: "translate(0px, 0px) rotate(0deg)" },
+          "50%": { transform: "translate(14px, -22px) rotate(6deg)" },
         },
         "pulse-slow": {
           "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.5" },
-        },
-        "gradient-shift": {
-          "0%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-          "100%": { backgroundPosition: "0% 50%" },
-        },
-        "matrix-move": {
-          "0%": { transform: "translate(0, 0)" },
-          "100%": { transform: "translate(30px, 30px)" },
+          "50%": { opacity: "0.55" },
         },
         "fade-in": {
-          from: { opacity: "0", transform: "translateY(10px)" },
+          from: { opacity: "0", transform: "translateY(12px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
         "slide-up": {
-          from: { opacity: "0", transform: "translateX(-20px)" },
-          to: { opacity: "1", transform: "translateX(0)" },
+          from: { opacity: "0", transform: "translateY(24px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
-        typing: {
-          from: { width: "0" },
-          to: { width: "100%" },
-        },
-        "blink-caret": {
-          "from, to": { borderColor: "transparent" },
-          "50%": { borderColor: "#10b981" },
+        blink: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
         },
       },
       backdropBlur: {

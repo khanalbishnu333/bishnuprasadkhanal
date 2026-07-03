@@ -1,6 +1,7 @@
 "use client"
 
 import { Code, Smartphone, Database, Zap, Globe, Shield } from "lucide-react"
+import TiltCard from "./TiltCard"
 
 const Services = () => {
   const services = [
@@ -8,9 +9,8 @@ const Services = () => {
       icon: Code,
       title: "Laravel Development",
       description:
-        "Custom Laravel web applications, APIs, and enterprise solutions built with best practices and modern architecture.",
+        "Custom Laravel web applications, APIs and enterprise solutions built with best practices and modern architecture.",
       features: ["Custom Web Applications", "RESTful API Development", "Laravel Packages", "Performance Optimization"],
-      color: "from-red-500 to-orange-500",
     },
     {
       icon: Globe,
@@ -18,15 +18,13 @@ const Services = () => {
       description:
         "Complete web solutions from frontend to backend, ensuring seamless user experiences and robust functionality.",
       features: ["React Frontend", "Laravel Backend", "Database Design", "Third-party Integrations"],
-      color: "from-blue-500 to-cyan-500",
     },
     {
       icon: Smartphone,
       title: "E-commerce Solutions",
       description:
-        "Scalable e-commerce platforms with payment gateways, inventory management, and modern shopping experiences.",
+        "Scalable e-commerce platforms with payment gateways, inventory management and modern shopping experiences.",
       features: ["Online Stores", "Payment Integration", "Inventory Management", "Order Processing"],
-      color: "from-green-500 to-teal-500",
     },
     {
       icon: Database,
@@ -34,90 +32,94 @@ const Services = () => {
       description:
         "Custom CRM systems and business automation tools to streamline operations and improve productivity.",
       features: ["Customer Management", "Sales Tracking", "Automation Tools", "Reporting & Analytics"],
-      color: "from-purple-500 to-pink-500",
     },
     {
       icon: Zap,
-      title: "API Development",
+      title: "API & Real-time Development",
       description:
-        "Robust and scalable APIs for mobile apps, third-party integrations, and microservices architecture.",
-      features: ["RESTful APIs", "GraphQL", "API Documentation", "Rate Limiting & Security"],
-      color: "from-yellow-500 to-orange-500",
+        "Robust, secure REST APIs and real-time features for mobile apps, third-party integrations and live updates.",
+      features: ["RESTful APIs", "WebSocket & Real-time", "API Documentation", "Security & Auth"],
     },
     {
       icon: Shield,
       title: "Maintenance & Support",
       description:
-        "Ongoing maintenance, security updates, performance optimization, and technical support for your applications.",
+        "Ongoing maintenance, security updates, performance optimization and technical support for your applications.",
       features: ["Security Updates", "Performance Monitoring", "Bug Fixes", "24/7 Support"],
-      color: "from-indigo-500 to-purple-500",
     },
   ]
 
+  // rotating warm accents (bg tint / text / dot)
+  const accents = [
+    { tint: "bg-gold/12", text: "text-gold-deep", dot: "bg-gold" },
+    { tint: "bg-sage/12", text: "text-sage-deep", dot: "bg-sage" },
+    { tint: "bg-clay/12", text: "text-clay", dot: "bg-clay" },
+  ]
+
   return (
-    <section id="services" className="py-20 bg-gradient-to-br from-gray-800 to-gray-900 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="bg-cream py-24 lg:py-28 relative">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-            Services I Offer
+        <div className="max-w-3xl mb-16" data-reveal>
+          <p className="eyebrow eyebrow-rule text-gold-deep mb-4">What I do</p>
+          <h2 className="font-display text-4xl md:text-5xl font-semibold text-ink leading-tight text-balance">
+            Services crafted to help your business grow.
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            As an expert <strong className="text-green-400">Laravel Developer</strong> and{" "}
-            <strong className="text-blue-400">Software Developer</strong> from Nepal, I provide comprehensive web
-            development services to help your business grow.
+          <p className="mt-5 text-lg text-ink-soft">
+            As an expert Laravel &amp; software developer from Nepal, I offer comprehensive web development services
+            end-to-end.
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-gray-700/50 hover:border-green-400/50 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
-            >
-              {/* Icon */}
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service, index) => {
+            const a = accents[index % accents.length]
+            return (
               <div
-                className={`inline-flex p-4 rounded-lg bg-gradient-to-r ${service.color} mb-6 group-hover:scale-110 transition-transform duration-300`}
+                key={index}
+                className="h-full"
+                data-reveal="zoom"
+                style={{ "--reveal-delay": `${(index % 3) * 90}ms` }}
               >
-                <service.icon className="w-8 h-8 text-white" />
+                <TiltCard className="card-paper rounded-3xl p-8 h-full">
+                  <div className={`inline-flex p-3.5 rounded-2xl ${a.tint} mb-6`}>
+                    <service.icon className={`w-7 h-7 ${a.text}`} />
+                  </div>
+                  <h3 className="font-display text-xl font-semibold text-ink mb-3">{service.title}</h3>
+                  <p className="text-ink-soft mb-6 leading-relaxed">{service.description}</p>
+                  <ul className="space-y-2.5">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center gap-2.5 text-ink-soft text-sm">
+                        <span className={`w-1.5 h-1.5 rounded-full ${a.dot}`} />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </TiltCard>
               </div>
-
-              {/* Title */}
-              <h3 className="text-xl font-bold text-white mb-4 group-hover:text-green-400 transition-colors">
-                {service.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-300 mb-6 leading-relaxed">{service.description}</p>
-
-              {/* Features */}
-              <ul className="space-y-2">
-                {service.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center space-x-2 text-gray-400">
-                    <span className="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-gray-700/50">
-            <h3 className="text-2xl font-bold text-white mb-4">Ready to Start Your Project?</h3>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Let's discuss your requirements and create something amazing together. I'm here to help bring your ideas
-              to life with cutting-edge technology and expert development skills.
-            </p>
-            <button
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              Get Free Consultation
-            </button>
+        {/* CTA */}
+        <div className="mt-14" data-reveal>
+          <div className="relative overflow-hidden rounded-4xl bg-ink text-cream px-8 py-12 md:px-14 md:py-14">
+            <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-gold/20 blur-2xl" aria-hidden="true" />
+            <div className="absolute -bottom-12 -left-8 w-40 h-40 rounded-full bg-sage/20 blur-2xl" aria-hidden="true" />
+            <div className="relative max-w-2xl">
+              <h3 className="font-display text-3xl md:text-4xl font-semibold mb-4">Ready to start your project?</h3>
+              <p className="text-cream/75 mb-8 leading-relaxed">
+                Let&apos;s discuss your requirements and build something great together — with cutting-edge technology
+                and expert development skills.
+              </p>
+              <button
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                className="btn-sage rounded-full px-7 py-3.5 active:scale-95 transition-transform"
+              >
+                Get a free consultation
+              </button>
+            </div>
           </div>
         </div>
       </div>

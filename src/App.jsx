@@ -9,11 +9,10 @@ import Experience from "./components/Experience"
 import Skills from "./components/Skills"
 import Projects from "./components/Projects"
 import Services from "./components/Services"
-import Testimonials from "./components/Testimonials"
-import Blog from "./components/Blog"
 import Contact from "./components/Contact"
 import Footer from "./components/Footer"
 import ScrollToTop from "./components/ScrollToTop"
+import ScrollProgress from "./components/ScrollProgress"
 import LoadingScreen from "./components/LoadingScreen"
 import SEOHead from "./components/SEOHead"
 import FloatingElements from "./components/FloatingElements"
@@ -22,24 +21,40 @@ import "./App.css"
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 4000) // 4 seconds loading time
+    }, 2600)
 
     return () => clearTimeout(timer)
   }, [])
 
+  // Reveal-on-scroll: elements carrying [data-reveal] fade/slide in once.
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+    if (isLoading) return
+
+    const els = Array.from(document.querySelectorAll("[data-reveal]"))
+    if (!("IntersectionObserver" in window) || els.length === 0) {
+      els.forEach((el) => el.classList.add("is-visible"))
+      return
     }
 
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible")
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    )
+
+    els.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [isLoading])
 
   if (isLoading) {
     return <LoadingScreen />
@@ -48,21 +63,10 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider>
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white relative overflow-x-hidden">
+        <div className="min-h-screen bg-cream text-ink relative overflow-x-hidden selection:bg-clay/20">
           <SEOHead />
 
-          {/* Custom cursor */}
-          <div
-            className="fixed w-6 h-6 pointer-events-none z-50 mix-blend-difference"
-            style={{
-              left: mousePosition.x - 12,
-              top: mousePosition.y - 12,
-              background: "radial-gradient(circle, #00ff88 0%, transparent 70%)",
-              borderRadius: "50%",
-              transition: "all 0.1s ease-out",
-            }}
-          />
-
+          <ScrollProgress />
           <FloatingElements />
           <Navigation />
 
@@ -73,8 +77,6 @@ function App() {
             <Skills />
             <Services />
             <Projects />
-            <Testimonials />
-            <Blog />
             <Contact />
           </main>
 

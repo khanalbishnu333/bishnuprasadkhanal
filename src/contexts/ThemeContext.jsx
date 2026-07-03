@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useEffect } from "react"
 
 const ThemeContext = createContext()
 
@@ -12,24 +12,21 @@ export const useTheme = () => {
   return context
 }
 
+/**
+ * The portfolio now uses a single warm-editorial light theme.
+ * We keep the provider (so existing imports keep working) but force light mode
+ * and strip any legacy `dark` class / saved preference that could tint the UI.
+ */
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(true)
-
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme")
-    if (savedTheme) {
-      setDarkMode(savedTheme === "dark")
+    document.documentElement.classList.remove("dark")
+    document.documentElement.style.colorScheme = "light"
+    try {
+      localStorage.removeItem("theme")
+    } catch {
+      /* ignore */
     }
   }, [])
 
-  useEffect(() => {
-    localStorage.setItem("theme", darkMode ? "dark" : "light")
-    document.documentElement.classList.toggle("dark", darkMode)
-  }, [darkMode])
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode)
-  }
-
-  return <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>{children}</ThemeContext.Provider>
+  return <ThemeContext.Provider value={{ darkMode: false, toggleDarkMode: () => {} }}>{children}</ThemeContext.Provider>
 }
